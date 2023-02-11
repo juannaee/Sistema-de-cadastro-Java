@@ -14,11 +14,11 @@ public class User {
 
 	private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-	public User(String nameUser, String emailUser, String passwordUser, Date birthdayUser) {
+	public User(String nameUser, String emailUser, Date birthdayUser) {
 		super();
 		this.nameUser = nameUser;
 		this.emailUser = emailUser;
-		this.passwordUser = passwordUser;
+
 		this.birthdayUser = birthdayUser;
 	}
 
@@ -46,31 +46,38 @@ public class User {
 		this.birthdayUser = birthdayUser;
 	}
 
-	public void updatePassword(String password, String testPassword) {
-		if (password.compareTo(password) == 0) {
-			throw new DomainException("A senha digita é a senha atual!!");
-		}
-		if (password.compareTo(testPassword) != 0) {
-
+	public void writePassword(String password, String repeatPassword) throws DomainException {
+		if (!password.equals(repeatPassword)) {
 			throw new DomainException("As senhas não são iguais!!");
-
 		}
+		this.passwordUser = password;
+
+	}
+
+	public void updatePassword(String repeatPassword, String newPassword) throws DomainException {
+		if (newPassword.equals(this.passwordUser)) {
+			throw new DomainException("A senha digitada é a senha atual!!");
+		}
+		if (!repeatPassword.equals(newPassword)) {
+			throw new DomainException("As senhas não são iguais!!");
+		}
+		this.passwordUser = newPassword;
 
 	}
 
 	public String showData(Boolean showData) {
-		if (showData == true) {
-			return "Seus dados: " + "/n" + "Nome: " + nameUser + "/n" + "Email: " + emailUser + "/n" + "Senha: "
-					+ passwordUser + "/n" + "Aniversario: " + sdf.format(birthdayUser);
-		} else {
+		if (showData != true) {
 			return "Certo saindo....";
 		}
+
+		return "Seus dados: " + "\n" + "Nome: " + nameUser + "\n" + "Email: " + emailUser + "\n" + "Senha: "
+				+ passwordUser + "\n" + "Aniversario: " + sdf.format(birthdayUser);
 	}
 
 	public String toString() {
 		StringBuilder stb = new StringBuilder();
 
-		stb.append("Bem vindo ao sistema: " + nameUser + "/n");
+		stb.append("Bem vindo ao sistema: " + nameUser + "\n");
 		stb.append("Email: " + emailUser);
 
 		return stb.toString();
