@@ -22,12 +22,29 @@ public class Program {
 			System.out.println("Data de aniversario (dd/mm/yyyy): ");
 			Date birthdayUser = sdf.parse(sc.next());
 			User user = new User(name, email, birthdayUser);
+
 			System.out.println("Senha: ");
 			sc.nextLine();
 			String password = sc.nextLine();
 			System.out.println("Digite a senha novamente: ");
 			String testPassword = sc.nextLine();
 			user.writePassword(password, testPassword);
+
+			System.out.println("Você deseja trocar sua senha ?");
+			System.out.println("(1 - sim / 2 - não)");
+			int option = sc.nextInt();
+			if (functionOptionUpdatePassword(option) == true) {
+				System.out.println("Senha: ");
+				sc.nextLine();
+				password = sc.nextLine();
+				System.out.println("Digite a senha novamente: ");
+				testPassword = sc.nextLine();
+				user.updatePassword(password, testPassword);
+
+			} else {
+				System.out.println("Saindo...................");
+			}
+
 			System.out.println("Deseja ver seus dados ? (1 - sim / 2 - não)");
 			int showData = sc.nextInt();
 			System.out.println(user.showData(functionShowData(showData)));
@@ -58,4 +75,11 @@ public class Program {
 
 	}
 
+	public static Boolean functionOptionUpdatePassword(int option) {
+		if (option == 1) {
+			return true;
+		}
+		return false;
+
+	}
 }
